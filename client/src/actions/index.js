@@ -64,3 +64,14 @@ export function getByName(name){
         }
     }
 }
+
+//PARA CREAR POKE 
+export function crearPoke(payload){
+    return async function(dispatch){
+        const data = await axios.post("http://localhost:3001/pokemon", payload)
+        return dispatch({
+            type: "POST_POKEMON",
+            payload: data
+        })
+    }
+}

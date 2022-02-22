@@ -105,8 +105,14 @@ switch(action.type){
     case "GET_BY_NAME": 
     return{
         ...state,
-        pokemons: action.payload
+        pokemons: [action.payload]
     }
+
+    case "POST_POKEMON":
+        return{
+            ...state
+        }
+
 
     default: 
     return state

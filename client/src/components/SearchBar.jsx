@@ -12,19 +12,19 @@ export default function SearchBar(){
     function handleChange(e){
         e.preventDefault()
         setName(e.target.value)
-        console.log(name)
     }
 
     function handleSubmit(e){
         e.preventDefault()
-        dispatch(getByName(name))
+        dispatch(getByName(name.toLowerCase()))
+        setName("")
 
     }
 
     return (
         <div>
-            <input onChange={e => handleChange(e)} type="text" placeholder="Buscar pokemón"/>
-            <button type="submit" onClick={e => handleSubmit(e)}>Buscar</button>
+            <input type="text" value={name} placeholder="Buscar pokemón" onChange={(e) => handleChange(e)}/>
+            <button type="submit" onClick={(e) => handleSubmit(e)}>Buscar</button>
         </div>
     )
 }

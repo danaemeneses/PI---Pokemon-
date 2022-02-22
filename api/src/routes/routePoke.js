@@ -16,7 +16,7 @@ router.get("/", async (req, res) =>{
             
             if(!existePKenDB){ // si ese pokemon no existe en mi DB, lo busco en la API 
                 const pokeBuscado = await datosDeAPI(name)
-                res.send(pokeBuscado)
+                return res.send(pokeBuscado)
             } 
 
 
@@ -31,7 +31,7 @@ router.get("/", async (req, res) =>{
                     }
                 }
             })
-            res.send(pokeDB)
+            return res.send(pokeDB)
         } catch (error) {
             res.status(404).send("pokemon not found" + error)
         }
