@@ -2,7 +2,8 @@
 const initialState = {
     pokemons: [],
     allPokemones: [],
-    types: []
+    types: [],
+    details: []
 }
 
 function rootReducer(state = initialState, action) {
@@ -44,8 +45,9 @@ switch(action.type){
 
     case "FILTER_BY_ORIGIN":
        
-        const origenesFilt = action.payload === "all" ? state.allPokemones : action.payload === "existentes" ?  state.allPokemones.filter(p => !p.createdInDB) : state.allPokemones.filter(p => p.createdInDB)
-
+        const origenesFilt = action.payload === "all" ? state.allPokemones : action.payload === "created" ?  state.allPokemones.filter(p => p.createdInDB) : state.allPokemones.filter(p => !p.createdInDB)
+        console.log(origenesFilt)
+        console.log(state.allPokemones.filter(p => p.createdInDB))
         return{
             ...state,
             pokemons: action.payload === "all" ? state.allPokemones : origenesFilt
@@ -107,6 +109,12 @@ switch(action.type){
         ...state,
         pokemons: [action.payload]
     }
+
+    case "DETAILS_POKEMON":
+        return{
+            ...state,
+            details: action.payload
+        }
 
     case "POST_POKEMON":
         return{

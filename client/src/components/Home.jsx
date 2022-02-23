@@ -6,7 +6,6 @@ import {Link} from "react-router-dom";
 import Card from "./Card";
 import Paginado from "./Paginado";
 import SearchBar from "./SearchBar";
-import { Fragment } from "react/cjs/react.production.min";
 
 
 export default function Home (){
@@ -104,11 +103,11 @@ return(
             {
             pokesActuales?.map(p => {
                 return(
-                        <Fragment>
+                        <div>
                             <Link to={"/home/" + p.id}>
                             <Card key={p.id} name={p.name} img={p.img} attack={p.attack} types={p.types} />
                             </Link>
-                        </Fragment>
+                        </div>
                 )                   
             })
             }

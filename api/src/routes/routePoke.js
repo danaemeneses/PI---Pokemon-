@@ -48,12 +48,14 @@ router.get("/", async (req, res) =>{
                 name : p.data.name,
                 img : p.data.sprites.front_default,
                 types : p.data.types.map((p) => p.type.name),
-                attack: p.data.stats[1].base_stat
+                attack: p.data.stats[1].base_stat,
+                id: p.data.id
             }
-            
         })
+
+        
         const misPokesDB = await Pokemon.findAll({ // ME TRAIGO TODOS LOS POKEMONES DE MI DB
-            attributes: ["name", "img", "attack", "hp", "id"],
+            attributes: ["name", "img", "attack", "hp", "id", "createdInDB"],
             include: {
                 model: Type, 
                 attributes: ["name"],
@@ -64,7 +66,7 @@ router.get("/", async (req, res) =>{
     })
         
 
-    console.log(misPokesDB)
+    // console.log(misPokesDB)
     const allMyPokes = [...mostrarPokesAPI, ...misPokesDB] // ACÁ JUNTO LOS DE LA DB Y LOS DE LA API 
 
     res.status(200).send(allMyPokes)
@@ -81,23 +83,40 @@ router.get("/:id", async (req, res, next) =>{
 
     if(id.includes("-")){ // si tiene un id Type uuid, va buscar el poke en mi db 
         try {
-            const miPokeDB = await Pokemon.findOne({  // si ese pokemon SI existe en mi DB, lo busco y traigo todos sus datos 
-                where: {id},
-                attributes: ["id", "name", "hp", "attack", "defense", "speed", "height", "weight", "img"],
-                include: { //incluyendo el Type!!!!!!!!!!! 
-                    model: Type, 
-                    attributes: ["name"],
-                    through: {
-                        attributes: []
-                    }
-                }
-            })
+            // const miPokeDB = await Pokemon.findOne({  // si ese pokemon SI existe en mi DB, lo busco y traigo todos sus datos 
+            //     where: {id},
+            //     attributes: ["id", "name", "hp", "attack", "defense", "speed", "height", "weight", "img"],
+            //     include: { //incluyendo el Type!!!!!!!!!!! 
+            //         model: Type, 
+            //         attributes: ["name"],
+            //         through: {
+            //             attributes: []
+            //         }
+            //     }
+            // })
 
-            if(miPokeDB) {
-                return res.send(miPokeDB)
+            // if(miPokeDB) {
+            //     return res.send(miPokeDB)
+            // }
+
+            const buscarPokeDB = await Pokemon.findByPk(id, {include: Type})
+            const miPokeDB = {
+                id: buscarPokeDB.id,
+                name: buscarPokeDB.name,
+                types: buscarPokeDB.types.map(t => t.name),
+                img: buscarPokeDB.img, 
+                hp: buscarPokeDB.hp,
+                attack: buscarPokeDB.attack,
+                defense: buscarPokeDB.defense,
+                speed: buscarPokeDB.speed,
+                height: buscarPokeDB.height,
+                weight: buscarPokeDB.weight,
             }
-    
-            
+
+            if(miPokeDB){
+              return res.send(miPokeDB)
+            }
+
         } catch (error) {
             next(error)
         }
@@ -136,7 +155,7 @@ router.post("/", async (req, res) => {
                 }
             })
 
-    console.log(newPokemon)
+    // console.log(newPokemon)
 
         if(!created){
             return res.status(404).send("Ese poke ya existe")
@@ -147,7 +166,7 @@ router.post("/", async (req, res) => {
         }) 
 
 
-        console.log(tipoPk)
+        // console.log(tipoPk)
     
         await newPokemon.setTypes(tipoPk)
 

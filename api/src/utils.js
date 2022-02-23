@@ -8,10 +8,10 @@ async function datosDeAPI (valorRecibido) {
     const infoPokemon = {
             id: apiURL.data.id,
             name: apiURL.data.name,
-            hp: apiURL.data.stats[0].hp,
-            attack: apiURL.data.stats[1].attack,
-            defense: apiURL.data.stats[2].defense,
-            speed: apiURL.data.stats[5].speed,
+            hp: apiURL.data.stats[0].base_stat,
+            attack: apiURL.data.stats[1].base_stat,
+            defense: apiURL.data.stats[2].base_stat,
+            speed: apiURL.data.stats[5].base_stat,
             weight: apiURL.data.weight,
             height: apiURL.data.height,
             types: apiURL.data.types.map(p => p.type.name ),
@@ -32,7 +32,6 @@ async function datosDeAPI (valorRecibido) {
         weight: valorRecibido.weight,
         height:valorRecibido.height,
         img: valorRecibido.img,
-        // types: valorRecibido.type.map(p => p.name )//revisar
     }
 
     return infoPokemonDB;
