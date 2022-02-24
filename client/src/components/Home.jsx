@@ -105,7 +105,7 @@ return(
                 return(
                         <div>
                             <Link to={"/home/" + p.id}>
-                            <Card key={p.id} name={p.name} img={p.img} attack={p.attack} types={p.types} />
+                            <Card key={p.id} name={p.name} img={p.img} attack={p.attack} types={p.types} id={p.id} />
                             </Link>
                         </div>
                 )                   

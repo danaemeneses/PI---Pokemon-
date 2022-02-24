@@ -48,7 +48,7 @@ export default function PokeDetail(){
                     <h3>DEFENSE: {myPokemon.defense}</h3>
                     <h3>SPEED: {myPokemon.speed}</h3>
                     <h3>WEIGHT: {myPokemon.weight}</h3>
-                    <h3>HEIGHT:{myPokemon.height}</h3>
+                    <h3>HEIGHT: {myPokemon.height}</h3>
                     <h3>TYPES: {myPokemon.types?.map(t => t).join(", ") }</h3>
                 </div> : <p>Pokemon not found :/ </p>
             }
