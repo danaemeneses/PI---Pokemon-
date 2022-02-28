@@ -22,7 +22,7 @@ router.get("/", async (req, res) =>{
 
             const pokeDB = await Pokemon.findOne({  // si ese pokemon SI existe en mi DB, lo busco y traigo todos sus datos 
                 where: {name: name.toLowerCase()},
-                attributes: ["id", "name", "hp", "img"],
+                attributes: ["id", "name", "attack", "img"],
                 include: { //incluyendo el Type!!!!!!!!!!! 
                     model: Type, 
                     attributes: ["name"],
@@ -46,7 +46,7 @@ router.get("/", async (req, res) =>{
         const mostrarPokesAPI = traerPokemones.map(p => { // ACÁ GUARDO TODOS LOS POKEMONS DE LA API 
             return{ //devuelve solo los datos que pide renderizar en la ruta principal
                 name : p.data.name,
-                img : p.data.sprites.front_default,
+                img : p.data.sprites.other.dream_world.front_default,
                 types : p.data.types.map((p) => p.type.name),
                 attack: p.data.stats[1].base_stat,
                 id: p.data.id
@@ -134,48 +134,51 @@ router.get("/:id", async (req, res, next) =>{
 //POST
 
 router.post("/", async (req, res) => {
-    try {
-        const {name, hp, attack, defense, speed, height, weight, img, createdInDB, types} = req.body
+   
+        let {name, hp, attack, defense, speed, height, weight, img, createdInDB, types} = req.body
+
+        name = name.charAt(0).toUpperCase() + name.slice(1) // hago que la primer letra sea mayuscula (por si el usuario la ingreso en minúscula) así cuando haga el sort by name, todo sale ok
 
         if(!img.length){
             img = "https://assets.thespinoff.co.nz/1/2019/04/HddtBOT.png"
         }
 
-            const [newPokemon, created] = await Pokemon.findOrCreate({
-                where: {
-                    name,
-                    hp,
-                    attack,
-                    defense,
-                    speed, 
-                    height, 
-                    weight,
-                    img,
-                    createdInDB: true
-                }
-            })
-
-    // console.log(newPokemon)
-
-        if(!created){
-            return res.status(404).send("Ese poke ya existe")
-        }
-
-        let tipoPk = await Type.findAll({
-            where: {name: types}
-        }) 
-
-
-        // console.log(tipoPk)
+            if(!name){
+                return  res.status(400).send({error: "Name is required"})
+            } else{
+                const [newPokemon, created] = await Pokemon.findOrCreate({
+                    where: {
+                        name,
+                        hp,
+                        attack,
+                        defense,
+                        speed, 
+                        height, 
+                        weight,
+                        img,
+                        createdInDB: true
+                    }
+                })
     
-        await newPokemon.setTypes(tipoPk)
-
-        res.status(201).send("Tu poke fue creado")
-
-    } catch (error) {
-        res.status(404).send("No se pudo crear tu pokemon" + error)
-    }
+        // console.log(newPokemon)
     
+            if(!created){
+                return res.status(400).send("Ese poke ya existe")
+            }
+    
+            let tipoPk = await Type.findAll({
+                where: {name: types}
+            }) 
+    
+    
+            // console.log(tipoPk)
+        
+            await newPokemon.setTypes(tipoPk)
+    
+            res.status(201).send("Tu poke fue creado")
+        
+            }
+            
 })
 
 module.exports = router;
