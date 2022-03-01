@@ -4,8 +4,25 @@ export const DivStyled = styled.div`
     background-color: #FFDAB9;
 
     h1{
-        font-family: 'Tourney', cursive;
+        color: #D8BFD8;
+        font-family: 'Gluten', cursive;
         font-size: 60px;
+        text-shadow: 6px 3px 6px black;
+        
+    }
+
+    .loading{
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        padding-top: 100px;
+        padding-bottom: 100px;
+    }
+
+    .contbtnsyfiltrados{
+        background-color: #fafad28a;
+        padding-top: 10px;
+        padding-bottom: 10px;
     }
 
     .btn-home{
@@ -24,18 +41,14 @@ export const DivStyled = styled.div`
 
     }
 
-    .filtrados{
-        background-color: #DDA0DD;
-        padding-top: 10px;
-        padding-bottom: 10px;
-    }
+    
 
     .opc-filt{
         margin-right: 20px;
         height: 25px;
         border-radius: 10px;
         font-family: 'Kufam', sans-serif;
-    }
+    }   
 
     .all-cards{
         display: grid;

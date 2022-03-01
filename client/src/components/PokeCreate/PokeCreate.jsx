@@ -41,6 +41,12 @@ export default function PokeCreate(){
         dispatch(getTypes())
     }, [dispatch])
 
+    useEffect(() => {
+        setErrors(validar(input))
+    }, [input])
+
+
+
     console.log(errors)
     /////HANDLE FUNCTIONS//////
 
@@ -86,18 +92,14 @@ export default function PokeCreate(){
 
     // console.log(input.types)
 
-    console.log(input)
- 
     function handleSubmit(e){//REVISAR ERR.NAME
         e.preventDefault()
         
+        if(Object.keys(errors).length){
+           alert(Object.values(errors))
+        } else{
 
-        if(input.name === ""){
-            alert("Debes ingresar un nombre")
-            return;
-        }
-
-            dispatch(crearPoke(input)) // despacho la accion de crear poke, mando alert para informar y seteo form a vacio 
+        dispatch(crearPoke(input)) // despacho la accion de crear poke, mando alert para informar y seteo form a vacio 
 
         setInput({
             name: "",
@@ -111,6 +113,7 @@ export default function PokeCreate(){
             types: [],
             createdInDB: true
         })
+        }
     }
 
     return(
@@ -120,11 +123,13 @@ export default function PokeCreate(){
            
             <form onSubmit={e => handleSubmit(e)}>
                 <div className="contform">
-                <h2>CREA TU POKEMON</h2>
-                {errors.name && (<p className="error">{errors.name}</p>)}
+                <h2>CREATE YOUR OWN POKEMON</h2>
+    
                     <div className="input-col">
-                        <label>Nombre:</label>
-                        <input onChange={e => handleChange(e)} type="text" placeholder="ingresa el nombre" value={input.name} name="name"/>
+                    
+                        <label>Name:</label>
+                        {errors.name && (<p className="error">{errors.name}</p>)}
+                        <input onChange={e => handleChange(e)} type="text" placeholder="ingresa el nombre" value={input.name} name="name" autoComplete="off"/>
                         
 
                         <label>HP: </label>
@@ -151,23 +156,23 @@ export default function PokeCreate(){
                         <input onChange={e => handleChange(e)} type="number" placeholder="ingresa el peso" value={input.weight} name="weight"/>
                         {/* {errors.weight && (<p className="error">{errors.weight}</p>)} */}
 
-                        <label>Imagen:</label>
+                        <label>Image:</label>
                         <input onChange={e => handleChange(e)} type="text" placeholder="ingresa URL de una imagen" value={input.img} name="img"/>
                         {/* {errors.img && (<p className="error">{errors.img}</p>)} */}
 
                     </div>
                     <div>
-                        <label>Tipos:</label>
+                        <label>Types:</label>
+                        {(input.types).length === 0 ? <p className="errortypes">Select types! </p> : (input.types).length > 2 ? <p className="errortypes"> Max types : 2 </p>: null}
                         <div className="alltypes">
                         {
                             types?.map(t => <label><input key={t.name} type="checkbox" name={t.name} value={t.name} onChange={(e) =>handleCheckbox(e)} />{t.name}</label>)
                         }
                         </div>
-                        {(input.types).length > 2 ? <p>Solo puedes elegir 2 types</p> : null}
+                       
                     </div>
                     <div>
                      <button className="btnsubmit" type="submit">Crear pokemon</button>
-                   
                     </div>
                 </div>
             </form>

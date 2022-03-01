@@ -21,22 +21,6 @@ export default function PokeDetail(){
 
     console.log(myPokemon)
 
-    // if(typeof (myPokemon.types) !== "string"){
-    //     myPokemon.types = (myPokemon.types)?.map((t) => t.name)
-    // } else {
-    //     myPokemon.types = myPokemon.types 
-    // }
-
-    // if( (myPokemon.id)?.length >3){
-    //     myPokemon.types = myPokemon.types.map((t) => t.name);
-    //     console.log(myPokemon.types)
-    // } else {
-    //     myPokemon.types = myPokemon.types;
-    //     console.log(myPokemon.types)
-
-    // }
-
-
     return(
         <DivStyled>
             <div className="cont-btn"></div>
@@ -52,7 +36,7 @@ export default function PokeDetail(){
                         <div>
                             <h1>I'M {(myPokemon.name)?.toUpperCase()}</h1>
                             <h6>ID: {myPokemon.id}</h6>
-                            <img src={myPokemon.img}/>
+                            <img src={myPokemon.img} alt="pokemon img"/>
                             <hr/>
                             <div className="stats">
                                 <h4>HP: {myPokemon.hp}</h4>

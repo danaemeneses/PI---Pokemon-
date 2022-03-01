@@ -18,6 +18,8 @@
     "thunk": "^0.0.1",
     "web-vitals": "^0.2.4",
     "styled-components": "5.3.3"
+
+
   },
   "scripts": {
     "start": "react-scripts start",
@@ -42,5 +44,7 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+
+  
   }
 }

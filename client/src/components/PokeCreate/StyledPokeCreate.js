@@ -61,6 +61,19 @@ export const DivStyled = styled.div`
     }
     }
     
+    .error{
+        position: absolute;
+        margin-left: 160px;
+        margin-top:25px;
+        font-size: 12px;
+        color:red;
+    }
+
+    .errortypes{
+        font-size: 12px;
+        color:red;
+    }
+
     .btnsubmit{ 
         margin-bottom: 15px;
         cursor: pointer;

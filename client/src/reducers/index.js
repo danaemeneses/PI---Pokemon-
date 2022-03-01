@@ -1,6 +1,6 @@
-
 const initialState = {
     pokemons: [],
+    pokesRender: [],
     allPokemones: [],
     types: [],
     details: []
@@ -13,7 +13,8 @@ switch(action.type){
     return {
         ...state,
         pokemons: action.payload,
-        allPokemones: action.payload
+        allPokemones: action.payload,
+        pokesRender: action.payload,
     }
 
     case "GET_TYPES":
@@ -29,9 +30,8 @@ switch(action.type){
         const typesBuscado = action.payload === "all" ? misPokes : misPokes.filter(p => {
             if(typeof p.types[0] !== "string"){
                 p.types = p.types.map(t => t.name)
-            } else {
-                p.types = p.types 
-            }
+            } 
+            
             return p.types.includes(action.payload)
         }) // que incluya porque puede tener más de un tipo
 
@@ -72,6 +72,7 @@ switch(action.type){
             if(b.name > a.name){
                 return 1
             }
+            return 0
         })
         return{
             ...state,
@@ -97,6 +98,7 @@ switch(action.type){
             if(b.attack > a.attack){
                 return 1
             }
+            return 0 
         })
         return{
             ...state,
