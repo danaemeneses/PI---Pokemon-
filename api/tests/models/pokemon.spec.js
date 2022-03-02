@@ -19,4 +19,21 @@ describe('Pokemon model', () => {
       });
     });
   });
+
+
+  describe('Stats', () => {
+    it('should throw an error if  hp is not a number', (done) =>{
+      Pokemon.create({name: 'Edward', hp: "hola"})
+        .then(() => done(new Error ('Hp must be a number')))
+        .catch(() => done())
+    })
+    
+    it('should throw an error if attack is not a number', (done) =>{
+      Pokemon.create({name: 'Edward', attack: "chau"})
+        .then(() => done(new Error ('Attack must be a number')))
+        .catch(() => done())
+    })
+  })
+
+
 });

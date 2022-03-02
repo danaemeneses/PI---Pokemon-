@@ -142,9 +142,6 @@ router.post("/", async (req, res) => {
         if(!img.length){
             img = "https://assets.thespinoff.co.nz/1/2019/04/HddtBOT.png"
         }
-        // if (isNaN(hp) || isNaN(attack) || isNaN(defense) || isNaN(speed) || isNaN(height) || isNaN(weight) ){
-        //     return res.json({ info: "must be a number" });
-        //   } // ver para hacer un test
 
            
         if(!name){
