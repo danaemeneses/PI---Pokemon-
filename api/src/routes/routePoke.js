@@ -2,7 +2,58 @@ const { Router } = require('express');
 const axios = require("axios")
 const router = Router()
 const {Pokemon, Type} = require("../db")
-const {datosDeAPI, infoDeDB} = require("../utils")
+const {datosDeAPI} = require("../utils")
+
+
+// router.get("/attack", async(req,res) =>{
+//     const {attack} = req.query; 
+//     if(attack){
+//         try {
+            
+
+//              const pokeDB = await Pokemon.findAll({  // si ese pokemon SI existe en mi DB, lo busco y traigo todos sus datos 
+//                 where: {attack: attack},
+//                 attributes: ["id", "name", "attack", "img"],
+//                 include: { //incluyendo el Type!!!!!!!!!!! 
+//                     model: Type, 
+//                     attributes: ["name"],
+//                     through: {
+//                         attributes: []
+//                     }
+//                 }
+//             })
+
+//             const apiURL = await axios.get("https://pokeapi.co/api/v2/pokemon?offset=0&limit=40%22"); // llamo solo 40 pokemons 
+//             const infoPokemon = await apiURL.data.results.map(p =>  { //subrequest a la url para traer los demás datos
+//                 return axios.get(p.url)
+//             })
+//             const traerPokemones = await Promise.all(infoPokemon)
+//             const mostrarPokesAPI = traerPokemones.map(p => { // ACÁ GUARDO TODOS LOS POKEMONS DE LA API 
+//                 return{ //devuelve solo los datos que pide renderizar en la ruta principal
+//                     name : p.data.name,
+//                     img : p.data.sprites.other.dream_world.front_default,
+//                     types : p.data.types.map((p) => p.type.name),
+//                     attack: p.data.stats[1].base_stat,
+//                     id: p.data.id
+//                 }
+//             })
+
+            
+//             let pokeAttack = mostrarPokesAPI.filter(poke => poke.attack === attack)
+
+//             let todosPokes = [...pokeAttack, ...pokeDB]
+//             console.log(todosPokes)
+
+//             res.send(todosPokes)
+
+             
+//         } catch (error) {
+//             console.log(error)
+//         }
+//     }
+// })
+
+
 
 router.get("/", async (req, res) =>{
     const {name} = req.query
@@ -83,21 +134,7 @@ router.get("/:id", async (req, res, next) =>{
 
     if(id.includes("-")){ // si tiene un id Type uuid, va buscar el poke en mi db 
         try {
-            // const miPokeDB = await Pokemon.findOne({  // si ese pokemon SI existe en mi DB, lo busco y traigo todos sus datos 
-            //     where: {id},
-            //     attributes: ["id", "name", "hp", "attack", "defense", "speed", "height", "weight", "img"],
-            //     include: { //incluyendo el Type!!!!!!!!!!! 
-            //         model: Type, 
-            //         attributes: ["name"],
-            //         through: {
-            //             attributes: []
-            //         }
-            //     }
-            // })
-
-            // if(miPokeDB) {
-            //     return res.send(miPokeDB)
-            // }
+           
 
             const buscarPokeDB = await Pokemon.findByPk(id, {include: Type})
             const miPokeDB = {

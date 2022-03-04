@@ -13,6 +13,7 @@ function validar(input){
     if(!input.name){
         errors.name = "Name is required";
     }
+    
 
     return errors
 }
@@ -158,8 +159,8 @@ export default function PokeCreate(){
 
                         <label>Image:</label>
                         <input onChange={e => handleChange(e)} type="text" placeholder="ingresa URL de una imagen" value={input.img} name="img"/>
-                        {/* {errors.img && (<p className="error">{errors.img}</p>)} */}
-
+                        {(input.img).length > 250 ? <p className="errortypes">URL cant have more than 250 characters </p> : null}
+                        
                     </div>
                     <div>
                         <label>Types:</label>

@@ -116,15 +116,16 @@ return(
 
             <div className="all-cards">
                 {
-                pokesActuales?.map(p => {
+                pokesActuales.length === 0 ? <p>Pokemons not found... Maybe you should try changing your filters :)</p> :
+                (pokesActuales.map(p => {
                     return(
-                        <div >
+                        <div key={p.id}>
                             <Link className="link-cards" to={"/home/" + p.id}>
                             <Card key={p.id} name={p.name} img={p.img} attack={p.attack} types={p.types} />
                             </Link>
                         </div>
                     )                   
-                })
+                })) 
                 }
             </div>
             

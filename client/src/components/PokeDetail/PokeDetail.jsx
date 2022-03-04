@@ -33,8 +33,11 @@ export default function PokeDetail(){
                 {
                     myPokemon?
                     <div className="poke">
-                        <div>
+                        <div className="info-details">
                             <h1>I'M {(myPokemon.name)?.toUpperCase()}</h1>
+                            <div>
+
+                            
                             <h6>ID: {myPokemon.id}</h6>
                             <img src={myPokemon.img} alt="pokemon img"/>
                             <hr/>
@@ -48,6 +51,7 @@ export default function PokeDetail(){
                             </div>
                             
                             <h4>Types: {myPokemon.types?.map(t => t).join(", ") }</h4>
+                        </div>
                         </div>
                     </div> : <p>Pokemon not found :/ </p>
                 }

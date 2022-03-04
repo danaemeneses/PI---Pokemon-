@@ -15,6 +15,10 @@ export const DivStyled = styled.div`
         justify-content:center;
     }
 
+    .info-details{
+        font-family: 'Kufam', sans-serif;
+    }
+
     .backbtn{
         display:flex;
         justify-content: flex-start;

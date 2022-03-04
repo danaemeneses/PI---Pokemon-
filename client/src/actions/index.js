@@ -54,14 +54,19 @@ export function orderByAttack(payload){
 export function getByName(name){
     return async function(dispatch){
         try {
-            let json = await axios.get("/pokemons?name=" + name)
-            return dispatch({
-            type: "GET_BY_NAME",
-            payload: json.data
-        })
+            var json = await axios.get("/pokemons?name=" + name)           
         } catch (error) {
             console.log(error)
-        }
+        } finally{
+            if(json){
+                return dispatch({
+                    type: "GET_BY_NAME",
+                    payload: json.data
+                })
+            } else{
+                return alert("This pokemon doesn't exists")
+            }
+        } 
     }
 }
 
